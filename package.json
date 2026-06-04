@@ -1,0 +1,10 @@
+{
+  "name": "joblink",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel --filter @joblink/web --filter @joblink/api dev",
+    "build": "pnpm --filter @joblink/web build",
+    "lint": "pnpm --recursive lint"
+  }
+}

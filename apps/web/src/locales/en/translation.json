@@ -1,0 +1,37 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "jobs": "Browse Jobs",
+    "applications": "My Applications",
+    "remote_ready": "Remote Ready",
+    "credits": "Credits",
+    "profile": "Profile",
+    "post_job": "Post a Job",
+    "applicants": "Candidates",
+    "analytics": "Analytics"
+  },
+  "auth": {
+    "sign_in": "Sign in",
+    "sign_up": "Create account",
+    "email": "Email address",
+    "password": "Password",
+    "google": "Continue with Google",
+    "have_account": "Already have an account?",
+    "no_account": "Don't have an account?",
+    "choose_role": "I am a...",
+    "role_seeker": "Job Seeker",
+    "role_seeker_desc": "Find remote work",
+    "role_employer": "Employer",
+    "role_employer_desc": "Hire globally",
+    "register_title": "Join JobLink",
+    "register_subtitle": "Your gateway to global remote work"
+  },
+  "landing": {
+    "hero_title": "Your Skills.",
+    "hero_title_2": "Global Opportunities.",
+    "hero_subtitle": "African Roots.",
+    "hero_desc": "AI-powered remote work applications in seconds. Verified. Curated. Built for Africa.",
+    "cta_seeker": "Start for Free",
+    "cta_employer": "Post a Job"
+  }
+}

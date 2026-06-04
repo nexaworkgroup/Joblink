@@ -1,0 +1,37 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "jobs": "Offres d'emploi",
+    "applications": "Mes candidatures",
+    "remote_ready": "Certifié Télétravail",
+    "credits": "Crédits",
+    "profile": "Profil",
+    "post_job": "Publier une offre",
+    "applicants": "Candidats",
+    "analytics": "Analyses"
+  },
+  "auth": {
+    "sign_in": "Se connecter",
+    "sign_up": "Créer un compte",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "google": "Continuer avec Google",
+    "have_account": "Déjà un compte ?",
+    "no_account": "Pas encore de compte ?",
+    "choose_role": "Je suis...",
+    "role_seeker": "Chercheur d'emploi",
+    "role_seeker_desc": "Trouver un travail à distance",
+    "role_employer": "Employeur",
+    "role_employer_desc": "Recruter mondialement",
+    "register_title": "Rejoindre JobLink",
+    "register_subtitle": "Votre passerelle vers le travail à distance"
+  },
+  "landing": {
+    "hero_title": "Vos compétences.",
+    "hero_title_2": "Des opportunités mondiales.",
+    "hero_subtitle": "Des racines africaines.",
+    "hero_desc": "Candidatures propulsées par l'IA en quelques secondes. Vérifiées. Sélectionnées. Conçues pour l'Afrique.",
+    "cta_seeker": "Commencer gratuitement",
+    "cta_employer": "Publier une offre"
+  }
+}
