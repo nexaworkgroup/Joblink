@@ -118,6 +118,23 @@ INSTRUCTIONS:
     return reply.send({ cv_html, cover_letter, application_id: appData?.id })
   })
 
+  // POST /ai/improve-job
+  app.post('/ai/improve-job', { preHandler: authenticate }, async (request, reply) => {
+    const { title, description } = request.body as { title: string; description: string }
+    try {
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4o-mini', max_tokens: 600, temperature: 0.5,
+        messages: [{ role: 'user', content: `Improve this job posting for "${title}" to attract African remote workers. Make it welcoming, clear, and inclusive. Keep it under 400 words.
+
+Original:
+${description}` }]
+      })
+      return reply.send({ improved: completion.choices[0]?.message?.content || description })
+    } catch (e: any) {
+      return reply.status(500).send({ error: 'Could not improve description' })
+    }
+  })
+
   // POST /ai/chat
   app.post('/ai/chat', { preHandler: authenticate }, async (request, reply) => {
     const { id, role } = request.user!
