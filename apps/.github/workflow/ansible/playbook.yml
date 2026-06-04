@@ -1,0 +1,59 @@
+name: joblink — Configure EC2 Server
+  hosts: joblink_server
+  become: true
+
+  vars:
+    aws_region: "us-east-1"
+    ecr_image: "YOUR_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/joblink-backend:latest"
+
+  tasks:
+    - name: Update apt packages
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Start and enable Docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Install AWS CLI
+      apt:
+        name: awscli
+        state: present
+
+    - name: Login to ECR
+      shell: >
+        aws ecr get-login-password --region {{ aws_region }} |
+        docker login --username AWS --password-stdin
+        YOUR_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com
+      environment:
+        AWS_ACCESS_KEY_ID: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+        AWS_SECRET_ACCESS_KEY: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+
+    - name: Pull latest backend image
+      command: docker pull {{ ecr_image }}
+
+    - name: Stop existing container
+      command: docker stop joblink-backend
+      ignore_errors: yes
+
+    - name: Remove existing container
+      command: docker rm joblink-backend
+      ignore_errors: yes
+
+    - name: Run backend container
+      command: >
+        docker run -d
+        --name joblink-backend
+        --restart unless-stopped
+        -p 3000:3000
+        -e NODE_ENV=production
+        -e SUPABASE_URL="{{ lookup('env', 'SUPABASE_URL') }}"
+        -e SUPABASE_KEY="{{ lookup('env', 'SUPABASE_KEY') }}"
+        {{ ecr_image }}
