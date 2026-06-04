@@ -9,6 +9,7 @@ export interface User {
   credits_balance: number
   lang_preference: string
   plan: string
+  onboarding_done?: boolean
 }
 
 interface AuthState {

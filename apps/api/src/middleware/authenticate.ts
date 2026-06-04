@@ -1,12 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { supabase } from '../lib/supabase.js'
-
-interface JWTPayload {
-  sub: string
-  email: string
-  user_metadata?: { role?: string }
-  app_metadata?: { role?: string }
-}
+import { supabase } from '../lib/supabase'
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -32,12 +25,16 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
   request.user = { id: user.id, email: user.email || '', role }
 }
 
-export async function requireRole(role: string) {
+// Returns a preHandler function directly (not async)
+export function requireRole(role: string) {
   return async (request: FastifyRequest, reply: FastifyReply) => {
     await authenticate(request, reply)
-    if (request.user?.role !== role) return reply.status(403).send({ error: 'Forbidden' })
+    if (reply.sent) return
+    if (request.user?.role !== role) {
+      return reply.status(403).send({ error: 'Forbidden' })
+    }
   }
 }
 
-export const requireSeeker  = requireRole('job_seeker')
+export const requireSeeker   = requireRole('job_seeker')
 export const requireEmployer = requireRole('employer')

@@ -48,7 +48,9 @@ function RequireOnboarding({ children }: { children: React.ReactNode }) {
   const { user, profile, initialized } = useAuthStore()
   if (!initialized) return null
   if (!user) return <Navigate to="/login" replace />
-  if (!profile) return <Navigate to="/onboarding" replace />
+  // Consider onboarding done if profile exists OR onboarding_done flag is set
+  const onboardingDone = (user as any).onboarding_done || !!profile
+  if (!onboardingDone) return <Navigate to="/onboarding" replace />
   return <>{children}</>
 }
 
