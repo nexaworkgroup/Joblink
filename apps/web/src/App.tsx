@@ -6,6 +6,7 @@ import { useAuthStore } from './store/authStore'
 
 // Layout
 import AppLayout from './components/layout/AppLayout'
+import AIChatWidget from './components/ui/AIChatWidget'
 
 // Public pages
 import LandingPage from './pages/Landing'
@@ -31,6 +32,7 @@ import EmployerDashboardPage from './pages/employer/Dashboard'
 import PostJobPage from './pages/employer/PostJob'
 import CandidatesPage from './pages/employer/Candidates'
 import EmployerJobsPage from './pages/employer/Jobs'
+import EmployerProfilePage from './pages/employer/Profile'
 
 // Admin
 import AdminPage from './pages/admin/Dashboard'
@@ -91,6 +93,7 @@ export default function App() {
   }, [])
 
   return (
+    <>
     <Routes>
       {/* Public */}
       <Route path="/" element={<LandingPage />} />
@@ -118,9 +121,12 @@ export default function App() {
         <Route path="/employer/post-job" element={<PostJobPage />} />
         <Route path="/employer/candidates" element={<CandidatesPage />} />
         <Route path="/employer/jobs" element={<EmployerJobsPage />} />
+        <Route path="/employer/profile" element={<EmployerProfilePage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    <AIChatWidget />
+    </>
   )
 }

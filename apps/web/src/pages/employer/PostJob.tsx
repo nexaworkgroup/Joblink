@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../../lib/api'
 import { useAuthStore } from '../../store/authStore'
@@ -28,6 +29,7 @@ export default function PostJobPage() {
   const navigate = useNavigate()
   const { profile } = useAuthStore()
   const { success, error: toastError } = useToast()
+  const qc = useQueryClient()
   const [loading, setLoading] = useState(false)
   const [improving, setImproving] = useState(false)
   const [done, setDone] = useState(false)
@@ -77,6 +79,8 @@ export default function PostJobPage() {
       })
       setDone(true)
       success('Job posted successfully! 🎉')
+      qc.invalidateQueries({ queryKey: ['employer-jobs'] })
+      qc.invalidateQueries({ queryKey: ['employer-stats'] })
     } catch (e: any) {
       toastError(e.message || 'Failed to post job')
     }
