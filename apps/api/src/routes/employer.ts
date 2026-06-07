@@ -85,11 +85,21 @@ export async function employerRoutes(app: FastifyInstance) {
     const { id } = request.user!
     const { job_id } = request.query as { job_id?: string }
 
-    const { data: emp } = await supabase.from('profiles_employer').select('id').eq('user_id', id).maybeSingle()
+    const { data: emp } = await supabase.from('profiles_employer').select('id, company_name').eq('user_id', id).maybeSingle()
     if (!emp) return reply.send({ applications: [] })
 
-    const { data: jobs } = await supabase.from('jobs').select('id').eq('employer_id', emp.id)
-    const jobIds = job_id ? [job_id] : (jobs || []).map(j => j.id)
+    // Get jobs by employer_id OR by company_name (handles jobs where employer_id wasn't set)
+    const { data: jobsByEmpId } = await supabase.from('jobs').select('id').eq('employer_id', emp.id)
+    const { data: jobsByName } = emp.company_name
+      ? await supabase.from('jobs').select('id').ilike('company_name', emp.company_name).eq('source', 'native')
+      : { data: [] }
+
+    const allJobIds = [...new Set([
+      ...(jobsByEmpId || []).map(j => j.id),
+      ...(jobsByName || []).map(j => j.id),
+    ])]
+
+    const jobIds = job_id ? [job_id] : allJobIds
     if (jobIds.length === 0) return reply.send({ applications: [] })
 
     const { data: apps } = await supabase.from('applications')

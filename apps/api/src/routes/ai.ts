@@ -102,10 +102,12 @@ INSTRUCTIONS:
     const cv_html    = cvRes.status === 'fulfilled'   ? (cvRes.value.choices[0]?.message?.content || '') : '<p>CV generation failed. Please try again.</p>'
     const cover_letter = clRes.status === 'fulfilled' ? (clRes.value.choices[0]?.message?.content || '') : 'Cover letter generation failed. Please try again.'
 
-    // Save application record
+    // Save application record — native jobs go straight to submitted
+    const appStatus = job.source === 'native' ? 'submitted' : 'generated'
     const { data: appData } = await supabase.from('applications').upsert({
       user_id: id, job_id, cv_html, cover_letter,
-      status: 'generated', credit_used: true,
+      status: appStatus, credit_used: true,
+      submitted_at: job.source === 'native' ? new Date().toISOString() : null,
       job_snapshot: { title: job.title, company_name: job.company_name, external_url: job.external_url },
       updated_at: new Date().toISOString(),
     }, { onConflict: 'user_id,job_id' }).select().single()
