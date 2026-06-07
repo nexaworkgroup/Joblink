@@ -109,7 +109,7 @@ export default function AppLayout() {
     { to: '/employer/jobs',       icon: Briefcase,       label: t('nav.my_jobs') },
     { to: '/employer/post-job',   icon: PlusCircle,      label: t('nav.post_job') },
     { to: '/employer/candidates', icon: Users,           label: t('nav.applicants') },
-    { to: '/profile',             icon: User,            label: t('nav.profile') },
+    { to: '/employer/profile',    icon: User,            label: t('nav.profile') },
   ]
   const navItems = isSeeker ? seekerNav : employerNav
 
