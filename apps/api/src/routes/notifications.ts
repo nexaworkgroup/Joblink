@@ -1,8 +1,9 @@
 import { FastifyInstance } from 'fastify'
-import { authenticate } from '../middleware/authenticate.js'
-import { supabase } from '../lib/supabase.js'
+import { authenticate } from '../middleware/authenticate'
+import { supabase } from '../lib/supabase'
 
 export async function notificationRoutes(app: FastifyInstance) {
+
   app.get('/notifications', { preHandler: authenticate }, async (request, reply) => {
     const { id } = request.user!
     const { data } = await supabase.from('notifications').select('*')
@@ -25,7 +26,8 @@ export async function notificationRoutes(app: FastifyInstance) {
 
   app.put('/notifications/:notifId/read', { preHandler: authenticate }, async (request, reply) => {
     const { notifId } = request.params as { notifId: string }
-    await supabase.from('notifications').update({ is_read: true }).eq('id', notifId)
+    const { id } = request.user!
+    await supabase.from('notifications').update({ is_read: true }).eq('id', notifId).eq('user_id', id)
     return reply.send({ success: true })
   })
 }

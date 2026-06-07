@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "jobs": "Offres d'emploi",
+    "applications": "Mes candidatures",
+    "remote_ready": "Certifi\u00e9 T\u00e9l\u00e9travail",
+    "credits": "Cr\u00e9dits",
+    "profile": "Profil",
+    "post_job": "Publier une offre",
+    "applicants": "Candidats",
+    "analytics": "Analyses",
+    "my_jobs": "Mes offres"
+  },
+  "auth": {
+    "sign_in": "Se connecter",
+    "sign_up": "Cr\u00e9er un compte",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "google": "Continuer avec Google",
+    "have_account": "D\u00e9j\u00e0 un compte ?",
+    "no_account": "Pas encore de compte ?",
+    "choose_role": "Je suis...",
+    "role_seeker": "Chercheur d'emploi",
+    "role_seeker_desc": "Trouver un travail \u00e0 distance",
+    "role_employer": "Employeur",
+    "role_employer_desc": "Recruter mondialement",
+    "register_title": "Rejoindre JobLink",
+    "register_subtitle": "Votre passerelle vers le travail \u00e0 distance"
+  },
+  "landing": {
+    "hero_title": "Vos comp\u00e9tences.",
+    "hero_title_2": "Des opportunit\u00e9s mondiales.",
+    "hero_subtitle": "Des racines africaines.",
+    "hero_desc": "Candidatures propuls\u00e9es par l'IA en quelques secondes. V\u00e9rifi\u00e9es. S\u00e9lectionn\u00e9es. Con\u00e7ues pour l'Afrique.",
+    "cta_seeker": "Commencer gratuitement",
+    "cta_employer": "Publier une offre"
+  }
+}

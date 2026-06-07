@@ -110,7 +110,12 @@ export async function adminRoutes(app: FastifyInstance) {
   })
 
   app.post('/admin/scrape', { preHandler: adminAuth }, async (_req, reply) => {
-    // Trigger scraper — will be wired to pipeline in Sprint 5
-    return reply.send({ success: true, inserted: 0, message: 'Scraper pipeline will be connected in Sprint 5' })
+    try {
+      const { runAggregationPipeline } = await import('../services/scraper/pipeline')
+      const result = await runAggregationPipeline()
+      return reply.send({ success: true, ...result })
+    } catch (e: any) {
+      return reply.status(500).send({ error: e.message })
+    }
   })
 }

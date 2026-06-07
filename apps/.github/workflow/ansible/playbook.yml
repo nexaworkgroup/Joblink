@@ -4,7 +4,7 @@ name: joblink — Configure EC2 Server
 
   vars:
     aws_region: "us-east-1"
-    ecr_image: "YOUR_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/joblink-backend:latest"
+    ecr_image: "12rtdkfbe2.dkr.ecr.us-east-1.amazonaws.com/joblink-backend:latest"
 
   tasks:
     - name: Update apt packages

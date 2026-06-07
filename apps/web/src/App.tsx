@@ -30,6 +30,7 @@ import ProfilePage from './pages/Profile'
 import EmployerDashboardPage from './pages/employer/Dashboard'
 import PostJobPage from './pages/employer/PostJob'
 import CandidatesPage from './pages/employer/Candidates'
+import EmployerJobsPage from './pages/employer/Jobs'
 
 // Admin
 import AdminPage from './pages/admin/Dashboard'
@@ -116,6 +117,7 @@ export default function App() {
         <Route path="/employer/dashboard" element={<EmployerDashboardPage />} />
         <Route path="/employer/post-job" element={<PostJobPage />} />
         <Route path="/employer/candidates" element={<CandidatesPage />} />
+        <Route path="/employer/jobs" element={<EmployerJobsPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

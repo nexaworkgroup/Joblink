@@ -8,6 +8,7 @@ import { employerRoutes } from './routes/employer'
 import { aiRoutes } from './routes/ai'
 import { remoteReadyRoutes } from './routes/remoteReady'
 import { adminRoutes } from './routes/admin'
+import { notificationRoutes } from './routes/notifications'
 
 async function main() {
   const app = Fastify({ logger: { level: 'warn' } })
@@ -31,6 +32,7 @@ async function main() {
   await app.register(aiRoutes)
   await app.register(remoteReadyRoutes)
   await app.register(adminRoutes)
+  await app.register(notificationRoutes)
 
   const PORT = parseInt(process.env.PORT || '3002')
   await app.listen({ port: PORT, host: '0.0.0.0' })

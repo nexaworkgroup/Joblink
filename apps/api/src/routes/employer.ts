@@ -111,6 +111,15 @@ export async function employerRoutes(app: FastifyInstance) {
     return reply.send({ applications: enriched })
   })
 
+  // PUT /employer/jobs/:id/toggle
+  app.put('/employer/jobs/:id/toggle', { preHandler: authenticate }, async (request, reply) => {
+    const { id: jobId } = request.params as { id: string }
+    const { is_active } = request.body as { is_active: boolean }
+    const { data, error } = await supabase.from('jobs').update({ is_active }).eq('id', jobId).select().maybeSingle()
+    if (error) return reply.status(500).send({ error: error.message })
+    return reply.send({ job: data })
+  })
+
   // PUT /employer/applications/:id/status
   app.put('/employer/applications/:id/status', { preHandler: authenticate }, async (request, reply) => {
     const { id: appId } = request.params as { id: string }
