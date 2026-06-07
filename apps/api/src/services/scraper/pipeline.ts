@@ -91,8 +91,13 @@ async function embedJob(jobId: string, job: RawJob) {
 
 export async function expireOldJobs(): Promise<number> {
   const cutoff = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString() // 60 days
-  const { count } = await supabase.from('jobs').update({ is_active: false })
-    .lt('posted_at', cutoff).eq('is_active', true).neq('source', 'native')
+  // Count first, then update
+  const { count } = await supabase.from('jobs')
     .select('*', { count: 'exact', head: true })
+    .lt('posted_at', cutoff).eq('is_active', true).neq('source', 'native')
+  if (count && count > 0) {
+    await supabase.from('jobs').update({ is_active: false })
+      .lt('posted_at', cutoff).eq('is_active', true).neq('source', 'native')
+  }
   return count || 0
 }
