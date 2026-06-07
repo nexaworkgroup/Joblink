@@ -89,7 +89,7 @@ export default function EmployerJobsPage() {
                     className="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all hover:border-primary hover:text-primary"
                     style={{ color: 'var(--text-2)', borderColor: 'var(--border)' }}
                     title="Edit job">
-                    <Edit3 size={13} /> Edit
+                    <Pencil size={13} /> Edit
                   </button>
                   <button onClick={() => navigate(`/employer/jobs/${job.id}/edit?tab=applicants`)}
                     className="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all hover:border-primary hover:text-primary"

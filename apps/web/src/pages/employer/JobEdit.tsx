@@ -5,7 +5,7 @@ import { api } from '../../lib/api'
 import { useToast } from '../../components/Toast'
 import {
   ArrowLeft, Save, Trash2, ToggleLeft, ToggleRight, Users,
-  Briefcase, AlertTriangle, CheckCircle, Edit3, Eye
+  Briefcase, AlertTriangle, CheckCircle, Pencil, Eye
 } from 'lucide-react'
 import { clsx } from 'clsx'
 
