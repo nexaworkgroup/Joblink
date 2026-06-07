@@ -60,7 +60,7 @@ export default function EmployerJobsPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <h3 className="font-semibold" style={{ color: 'var(--text-1)' }}>{job.title}</h3>
+                    <button onClick={() => navigate(`/employer/jobs/${job.id}/edit`)} className="font-semibold hover:text-primary transition-colors text-left" style={{ color: 'var(--text-1)' }}>{job.title}</button>
                     <span className={clsx('badge text-xs', job.is_active ? 'badge-green' : 'badge-gray')}>
                       {job.is_active ? '🟢 Active' : '⚫ Closed'}
                     </span>
@@ -85,9 +85,16 @@ export default function EmployerJobsPage() {
                   )}
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                  <button onClick={() => navigate(`/employer/candidates?job=${job.id}`)}
+                  <button onClick={() => navigate(`/employer/jobs/${job.id}/edit`)}
                     className="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all hover:border-primary hover:text-primary"
-                    style={{ color: 'var(--text-2)', borderColor: 'var(--border)' }}>
+                    style={{ color: 'var(--text-2)', borderColor: 'var(--border)' }}
+                    title="Edit job">
+                    <Edit3 size={13} /> Edit
+                  </button>
+                  <button onClick={() => navigate(`/employer/jobs/${job.id}/edit?tab=applicants`)}
+                    className="flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-lg border transition-all hover:border-primary hover:text-primary"
+                    style={{ color: 'var(--text-2)', borderColor: 'var(--border)' }}
+                    title="View applicants">
                     <Users size={13} /> {job.application_count || 0}
                   </button>
                   <button

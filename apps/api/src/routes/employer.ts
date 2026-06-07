@@ -140,6 +140,38 @@ export async function employerRoutes(app: FastifyInstance) {
     return reply.send({ profile })
   })
 
+  // PUT /employer/jobs/:id — full edit
+  app.put('/employer/jobs/:id', { preHandler: authenticate }, async (request, reply) => {
+    const { id: jobId } = request.params as { id: string }
+    const body = request.body as any
+    const { data, error } = await supabase.from('jobs').update({
+      title: body.title,
+      description: body.description,
+      requirements: body.requirements,
+      location: body.location,
+      is_remote: body.is_remote,
+      job_type: body.job_type,
+      experience_level: body.experience_level,
+      salary_min: body.salary_min || null,
+      salary_max: body.salary_max || null,
+      salary_currency: body.salary_currency || 'USD',
+      tags: body.tags || [],
+      external_url: body.external_url || null,
+      africa_hiring_signal: body.africa_hiring_signal || 3,
+      is_active: body.is_active !== false,
+    }).eq('id', jobId).select().maybeSingle()
+    if (error) return reply.status(500).send({ error: error.message })
+    return reply.send({ job: data })
+  })
+
+  // DELETE /employer/jobs/:id
+  app.delete('/employer/jobs/:id', { preHandler: authenticate }, async (request, reply) => {
+    const { id: jobId } = request.params as { id: string }
+    await supabase.from('applications').delete().eq('job_id', jobId)
+    await supabase.from('jobs').delete().eq('id', jobId)
+    return reply.send({ success: true })
+  })
+
   // PUT /employer/jobs/:id/toggle
   app.put('/employer/jobs/:id/toggle', { preHandler: authenticate }, async (request, reply) => {
     const { id: jobId } = request.params as { id: string }
