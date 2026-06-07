@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '../lib/api'
+import { supabase } from '../lib/supabase'
 import { useToast } from '../components/Toast'
 import {
   Shield, Wifi, Battery, CheckCircle, Clock, Upload,
@@ -99,9 +100,11 @@ export default function RemoteReadyPage() {
       const start = Date.now()
 
       // Download a test payload to measure speed
+      const { data: { session } } = await supabase.auth.getSession()
+      const token = session?.access_token || ''
       const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3002'}/remote-ready/speed-test`, {
         cache: 'no-store',
-        headers: { Authorization: `Bearer ${(await import('../lib/supabase').then(m => m.supabase.auth.getSession()))?.data?.session?.access_token || ''}` }
+        headers: { Authorization: `Bearer ${token}` }
       })
       const data = await res.json()
       const elapsed = (Date.now() - start) / 1000
