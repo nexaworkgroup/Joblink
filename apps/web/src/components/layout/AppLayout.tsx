@@ -106,7 +106,7 @@ export default function AppLayout() {
   ]
   const employerNav = [
     { to: '/employer/dashboard',  icon: LayoutDashboard, label: t('nav.dashboard') },
-    { to: '/employer/jobs',       icon: Briefcase,       label: t('nav.my_jobs') },
+    { to: '/employer/jobs',       icon: Briefcase,       label: 'My Jobs' },
     { to: '/employer/post-job',   icon: PlusCircle,      label: t('nav.post_job') },
     { to: '/employer/candidates', icon: Users,           label: t('nav.applicants') },
     { to: '/employer/profile',    icon: User,            label: t('nav.profile') },

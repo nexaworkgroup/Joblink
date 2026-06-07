@@ -31,10 +31,11 @@ export async function employerRoutes(app: FastifyInstance) {
     const { data: emp } = await supabase.from('profiles_employer').select('id').eq('user_id', id).maybeSingle()
     if (!emp) return reply.send({ jobs: [] })
 
+    // Primary: query by employer_id
     const { data: jobs } = await supabase.from('jobs')
       .select('id, title, description, job_type, experience_level, location, is_remote, salary_min, salary_max, salary_currency, africa_hiring_signal, is_active, posted_at, tags, external_url')
-      .eq('employer_id', emp.id)
-      .order('created_at', { ascending: false })
+      .or(`employer_id.eq.${emp.id}`)
+      .order('posted_at', { ascending: false })
 
     // Add application counts
     const jobsWithCounts = await Promise.all((jobs || []).map(async (job) => {
